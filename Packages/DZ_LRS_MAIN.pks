@@ -7,7 +7,7 @@ AS
    header: DZ_LRS
      
    - Build ID: DZBUILDIDDZ
-   - TFS Change Set: DZTFSCHANGESETDZ
+   - TFS Change Set: DZCHANGESETDZ
    
    Utilities for the creation and manipulation of Oracle Spatial LRS geometries.
    
