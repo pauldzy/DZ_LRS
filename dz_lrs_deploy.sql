@@ -1,15 +1,9 @@
-
---*************************--
-PROMPT sqlplus_header.sql;
-
 WHENEVER SQLERROR EXIT -99;
 WHENEVER OSERROR  EXIT -98;
 SET DEFINE OFF;
 
-
-
---*************************--
-PROMPT DZ_LRS_UTIL.pks;
+--******************************--
+PROMPT Packages/DZ_LRS_UTIL.pks 
 
 CREATE OR REPLACE PACKAGE dz_lrs_util
 AUTHID CURRENT_USER
@@ -158,9 +152,8 @@ END dz_lrs_util;
 
 GRANT EXECUTE ON dz_lrs_util TO PUBLIC;
 
-
---*************************--
-PROMPT DZ_LRS_UTIL.pkb;
+--******************************--
+PROMPT Packages/DZ_LRS_UTIL.pkb 
 
 CREATE OR REPLACE PACKAGE BODY dz_lrs_util
 AS
@@ -1515,9 +1508,8 @@ AS
 END dz_lrs_util;
 /
 
-
---*************************--
-PROMPT DZ_LRS_MAIN.pks;
+--******************************--
+PROMPT Packages/DZ_LRS_MAIN.pks 
 
 CREATE OR REPLACE PACKAGE dz_lrs_main
 AUTHID CURRENT_USER
@@ -1527,8 +1519,8 @@ AS
    /*
    header: DZ_LRS
      
-   - Build ID: 4
-   - TFS Change Set: 8319
+   - Build ID: DZBUILDIDDZ
+   - Change Set: DZCHANGESETDZ
    
    Utilities for the creation and manipulation of Oracle Spatial LRS geometries.
    
@@ -1907,9 +1899,8 @@ END dz_lrs_main;
 
 GRANT EXECUTE ON dz_lrs_main TO public;
 
-
---*************************--
-PROMPT DZ_LRS_MAIN.pkb;
+--******************************--
+PROMPT Packages/DZ_LRS_MAIN.pkb 
 
 CREATE OR REPLACE PACKAGE BODY dz_lrs_main
 AS
@@ -3425,17 +3416,16 @@ AS
 END dz_lrs_main;
 /
 
-
---*************************--
-PROMPT DZ_LRS_TEST.pks;
+--******************************--
+PROMPT Packages/DZ_LRS_TEST.pks 
 
 CREATE OR REPLACE PACKAGE dz_lrs_test
 AUTHID DEFINER
 AS
 
-   C_TFS_CHANGESET CONSTANT NUMBER := 8319;
+   C_CHANGESET CONSTANT VARCHAR2(255 Char) := 'NULL';
    C_JENKINS_JOBNM CONSTANT VARCHAR2(255 Char) := 'NULL';
-   C_JENKINS_BUILD CONSTANT NUMBER := 4;
+   C_JENKINS_BUILD CONSTANT NUMBER := 0.0;
    C_JENKINS_BLDID CONSTANT VARCHAR2(255 Char) := 'NULL';
    
    C_PREREQUISITES CONSTANT MDSYS.SDO_STRING2_ARRAY := MDSYS.SDO_STRING2_ARRAY(
@@ -3466,9 +3456,8 @@ END dz_lrs_test;
 
 GRANT EXECUTE ON dz_lrs_test TO public;
 
-
---*************************--
-PROMPT DZ_LRS_TEST.pkb;
+--******************************--
+PROMPT Packages/DZ_LRS_TEST.pkb 
 
 CREATE OR REPLACE PACKAGE BODY dz_lrs_test
 AS
@@ -3511,7 +3500,7 @@ AS
    RETURN VARCHAR2
    AS
    BEGIN
-      RETURN '{"TFS":' || C_TFS_CHANGESET || ','
+      RETURN '{"CHANGESET":' || C_CHANGESET || ','
       || '"JOBN":"' || C_JENKINS_JOBNM || '",'   
       || '"BUILD":' || C_JENKINS_BUILD || ','
       || '"BUILDID":"' || C_JENKINS_BLDID || '"}';
@@ -3540,11 +3529,6 @@ AS
 
 END dz_lrs_test;
 /
-
-
---*************************--
-PROMPT sqlplus_footer.sql;
-
 
 SHOW ERROR;
 
@@ -3579,4 +3563,5 @@ END;
 /
 
 EXIT;
+SET DEFINE OFF;
 
